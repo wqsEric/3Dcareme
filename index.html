@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style>
+  *{
+    padding:0px;margin:0px;
+  }
+  html,
+  body{
+    width: 100%;
+    height: 100%;
+    background:#000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .photo{
+    /* width:136px;
+    height:180px; */
+    width:100px;
+    height:142px;
+    border:1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    margin:160px auto;
+    box-sizing: border-box;
+    position: relative;
+    transform:rotateX(-10deg);
+    transform-style:preserve-3d;
+    perspective:800px;
+  }
+  .photo img{
+    width:100%;
+    height:100%;
+    position:absolute;
+    box-shadow:0 0 8px #eaeaea;
+    box-shadow: 1px -1px 6px #666;
+    border-radius:4px;
+    cursor:pointer;
+    transition: all 1s; 
+    -webkit-box-reflect: below 3px -webkit-linear-gradient(top,rgba(0,0,0,0) 40%,rgba(0,0,0,0.5));
+  }
+  .photo div{
+    width: 600px;
+    height: 600px;
+    border-radius:50%;
+    position: absolute;
+    top: 102%;
+    left: 50%;
+    margin-left:-300px;
+    margin-top:-307px;
+    transform:rotateX(90deg);
+    background:-webkit-radial-gradient(center center,600px 600px,rgba(158,158,222,0.5),rgba(0,0,0,0));
+  }
+</style>
+<body>
+
+  <audio id='playauto' autoplay>
+    <source src='./images/王童语 - 丫头.mp3'>
+  </audio>
+  <div class='photo'>
+    <img src="./images/WechatIMG980.jpeg" alt="">
+    <img src="./images/WechatIMG981.jpeg" alt="">
+    <img src="./images/WechatIMG982.jpeg" alt="">
+    <img src="./images/WechatIMG983.jpeg" alt="">
+    <img src="./images/WechatIMG985.jpeg" alt="">
+    <img src="./images/WechatIMG986.jpeg" alt="">
+    <img src="./images/WechatIMG987.jpeg" alt="">
+    <img src="./images/WechatIMG982.jpeg" alt="">
+    <!-- <div></div> -->
+  </div>
+  <script>
+    var photosDom = document.querySelector('.photo');
+    var auto = document.querySelector('#playauto');
+    photosDom.onclick = function(event){
+      animation()
+    }
+    function animation(){
+      //获取图片数组
+      var images = photosDom.getElementsByTagName('img'); 
+      //获取图片数量
+      var len = images.length;        
+      //计算每张图片按Y轴旋转的角度 
+      var count = 1;
+      var deg = Math.floor(360/ len);                    
+      for(var i = len-1; i >= 0;i--){
+        count++;
+        images[i].style = 'transform : rotateY(' +deg * i + 'deg) translateZ(140px)';
+        images[i].style.transition = 'all '+count+'s';
+      }
+      var x = 0;
+      setInterval(function(){
+          photosDom.style.transform = "rotateX(-10deg) rotateY("+ (x++) * 0.2 +"deg)";
+      },30);
+    }
+    document.addEventListener('click', musicPlay);
+    function musicPlay() {
+        document.getElementById('playauto').play();
+        document.removeEventListener('click', musicPlay);
+    }
+  </script>
+</body>
+</html>
